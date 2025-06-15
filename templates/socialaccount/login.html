@@ -1,0 +1,79 @@
+{% extends "_base.html" %}
+{% load socialaccount %}
+
+{% block title %}Sign In with Google{% endblock title %}
+
+{% block style %}
+<style>
+    .auth-container {
+        max-width: 400px;
+        margin: 5rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .auth-container h2 {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    .auth-container p {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 2rem;
+    }
+
+    .google-btn {
+        background-color: #4285F4;
+        color: #fff;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .google-btn:hover {
+        background-color: #3367d6;
+    }
+
+    .auth-container a {
+        color: #dc3545;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .auth-container a:hover {
+        text-decoration: underline;
+    }
+
+    form p {
+        display: none; /* Hide the extra form field (if any unnecessary fields appear) */
+    }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+    <div class="auth-container google-auth-container">
+        <h2>Continue with Google</h2>
+        <p>You're about to sign in with Google. Click the button below to proceed.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="google-btn">Continue with Google</button>
+        </form>
+
+        <p>Or <a href="{% url 'account_login' %}">go back to login</a></p>
+    </div>
+{% endblock content %}

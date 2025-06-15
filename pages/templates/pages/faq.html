@@ -1,0 +1,28 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}FAQ{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'pages/info_pages.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="info-container">
+    <h1 class="info-title">Frequently Asked Questions</h1>
+    <div class="faq-list">
+        <div class="faq-item">
+            <h3>How do I reset my password?</h3>
+            <p>Click on "Forgot Password" on the login page and follow the instructions sent to your email.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How do I edit my profile?</h3>
+            <p>Go to your dashboard and click "Edit Profile" to update your information.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How do I contact a service provider?</h3>
+            <p>Visit the provider's profile and use the booking or contact options available.</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

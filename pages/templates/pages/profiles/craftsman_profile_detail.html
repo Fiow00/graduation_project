@@ -1,0 +1,45 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}Craftsman Profile{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'pages/craftsman_profile_detail.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="profile-container">
+    <h1 class="profile-title">Craftsman Profile</h1>
+
+    <div class="profile-picture-wrapper">
+        {% if craftsman.photo %}
+            <img src="{{ craftsman.photo.url }}" alt="Craftsman Photo" class="profile-picture">
+        {% else %}
+            <div class="profile-avatar placeholder">{{ craftsman.user.username|slice:":1"|upper }}</div>
+        {% endif %}
+    </div>
+
+    <div class="profile-section">
+        <h2>Personal Information</h2>
+        <p><strong>Username:</strong> {{ craftsman.user.username }}</p>
+        <p><strong>Email:</strong> {{ craftsman.user.email }}</p>
+        <p><strong>Phone:</strong> {{ craftsman.user.phone|default:"—" }}</p>
+    </div>
+
+    <div class="profile-section">
+        <h2>Location</h2>
+        <p><strong>Governorate:</strong> {{ craftsman.get_governorate_display|default:"—" }}</p>
+        <p><strong>City:</strong> {{ craftsman.city|default:"—" }}</p>
+    </div>
+
+    <div class="profile-section">
+        <h2>Service</h2>
+        <p><strong>Service:</strong> {{ craftsman.service|default:"—" }}</p>
+        <p><strong>Experience:</strong> {{ craftsman.experience_years|default:"—" }} years</p>
+        <p><strong>Certifications:</strong> {{ craftsman.certifications|default:"—" }}</p>
+        <p><strong>Bio:</strong> {{ craftsman.bio|default:"—" }}</p>
+    </div>
+
+    <a href="{% url 'craftsman_profile_update' %}" class="edit-button">Edit Profile</a>
+</div>
+{% endblock content %}

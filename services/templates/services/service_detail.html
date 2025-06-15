@@ -1,0 +1,67 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}{{ service.title }} Craftsmen | Serv4U{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'services/service_detail.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+  <section class="service-detail">
+    <div class="container">
+      <a href="{% url 'service_list' %}" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Services
+      </a>
+
+      <div class="service-header">
+        <h1>{{ service.title }}</h1>
+        <div class="service-image">
+          <img src="{{ service.image.url }}" alt="{{ service.title }}">
+        </div>
+        {% if service.description %}
+          <p class="service-description">{{ service.description }}</p>
+        {% endif %}
+      </div>
+
+      <div class="craftsmen-section">
+        <h2>Available Craftsmen</h2>
+        
+        {% if craftsmen %}
+          <div class="craftsmen-grid">
+            {% for craftsman in craftsmen %}
+              <div class="craftsman-card">
+                <div class="craftsman-photo">
+                  {% if craftsman.photo %}
+                    <img src="{{ craftsman.photo.url }}" alt="{{ craftsman.user.username }}">
+                  {% else %}
+                    <div class="default-avatar">
+                      <i class="fas fa-user-circle"></i>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="craftsman-info">
+                  <h3>{{ craftsman.user.username }}</h3>
+                  <p class="location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ craftsman.governorate }}, {{ craftsman.city }}
+                  </p>
+                  <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <span>{{ craftsman.rating|default:"0.0" }}</span>
+                  </div>
+                  <a href="{% url 'craftsman_detail' craftsman.pk %}" class="view-profile">View Craftsman</a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="no-craftsmen">
+            <p>No verified craftsmen available for this service yet.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

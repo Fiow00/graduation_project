@@ -1,0 +1,29 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}Help Center{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'pages/info_pages.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="info-container">
+    <h1 class="info-title">Help Center</h1>
+    <p class="info-intro">Find answers to common questions and get support for using Serv4U.</p>
+    <div class="faq-list">
+        <div class="faq-item">
+            <h3>How do I book a service?</h3>
+            <p>Browse our services, select a professional, and click the "Book" button. Fill in your details and submit your request.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How do I contact support?</h3>
+            <p>You can use our <a href="{% url 'contact_us' %}">Contact Us</a> page or email us at support@serv4u.com.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How do I become a service provider?</h3>
+            <p>Sign up and complete your craftsman profile. Our team will review and verify your information.</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

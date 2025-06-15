@@ -1,0 +1,26 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}Terms of Service{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'pages/info_pages.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="info-container">
+    <h1 class="info-title">Terms of Service</h1>
+    <p class="info-intro">By using Serv4U, you agree to the following terms and conditions.</p>
+    <h2>Use of Service</h2>
+    <p>You must be at least 18 years old to use our platform. You agree to provide accurate information and use the service lawfully.</p>
+    <h2>Bookings & Payments</h2>
+    <p>All bookings are subject to acceptance by the service provider. Payments must be made as agreed between you and the provider.</p>
+    <h2>User Conduct</h2>
+    <ul>
+        <li>Do not misuse the platform or provide false information.</li>
+        <li>Respect all users and service providers.</li>
+    </ul>
+    <h2>Changes to Terms</h2>
+    <p>We may update these terms at any time. Continued use of the platform means you accept the new terms.</p>
+</div>
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}Edit Craftsman Profile{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'pages/craftsman_profile_update.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="edit-profile-container">
+    <h1 class="edit-profile-title">Edit Craftsman Profile</h1>
+    <form method="post" enctype="multipart/form-data" class="edit-profile-form">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="help-text">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="form-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="save-btn">Save Changes</button>
+        <a href="{% url 'craftsman_profile' %}" class="cancel-btn">Cancel</a>
+    </form>
+</div>
+{% endblock content %}

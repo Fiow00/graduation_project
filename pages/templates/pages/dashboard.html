@@ -1,0 +1,98 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'pages/dashboard.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1 class="dashboard-title">Dashboard</h1>
+
+    {% if is_craftsman %}
+        <h2>Booking Requests For Your Services</h2>
+        {% if received_bookings %}
+            <ul class="booking-list">
+                {% for booking in received_bookings %}
+                    <li class="booking-item">
+                        <div class="booking-user-info">
+                            {% if booking.user.photo %}
+                                <img src="{{ booking.user.photo.url }}" alt="{{ booking.user.username }}" class="booking-user-photo">
+                            {% else %}
+                                <div class="booking-user-photo placeholder">{{ booking.user.username|slice:":1"|upper }}</div>
+                            {% endif %}
+                            <div>
+                                <strong>{{ booking.user.username }}</strong><br>
+                                <span><b>Phone:</b> {{ booking.user.phone|default:"—" }}</span><br>
+                                <span><b>Governorate:</b> {{ booking.user.governorate|default:"—" }}</span><br>
+                                <span><b>City:</b> {{ booking.user.city|default:"—" }}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <strong>Message:</strong> {{ booking.message|default:"—" }}
+                        </div>
+                        <div>
+                            <strong>Status:</strong>
+                            {% if booking.status == "accepted" %}
+                                <span class="booking-status accepted">Accepted</span>
+                            {% elif booking.status == "refused" %}
+                                <span class="booking-status refused">Refused</span>
+                            {% else %}
+                                <span class="booking-status pending">Pending</span>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <small>Requested at: {{ booking.created_at|date:"Y-m-d H:i" }}</small>
+                        </div>
+                        {% if booking.status == "pending" %}
+                        <form method="post" style="margin-top:8px;">
+                            {% csrf_token %}
+                            <button type="submit" name="accept_booking" value="{{ booking.id }}" class="dashboard-btn accept">Accept</button>
+                            <button type="submit" name="refuse_booking" value="{{ booking.id }}" class="dashboard-btn refuse">Refuse</button>
+                        </form>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No booking requests yet.</p>
+        {% endif %}
+    {% else %}
+        <h2>My Bookings</h2>
+        {% if bookings %}
+            <ul class="booking-list">
+                {% for booking in bookings %}
+                    <li class="booking-item">
+                        <div>
+                            <strong>Craftsman:</strong>
+                            <a href="{% url 'craftsman_detail' booking.craftsman.pk %}">
+                                {{ booking.craftsman.user.username }}
+                            </a>
+                        </div>
+                        <div>
+                            <strong>Status:</strong>
+                            {% if booking.status == "accepted" %}
+                                <span class="booking-status accepted">Accepted</span>
+                            {% elif booking.status == "refused" %}
+                                <span class="booking-status refused">Refused</span>
+                            {% else %}
+                                <span class="booking-status pending">Pending</span>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <strong>Message:</strong> {{ booking.message|default:"—" }}
+                        </div>
+                        <div>
+                            <small>Requested at: {{ booking.created_at|date:"Y-m-d H:i" }}</small>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have not booked any craftsmen yet.</p>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock content %}

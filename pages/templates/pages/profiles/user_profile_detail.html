@@ -1,0 +1,37 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}User Profile{% endblock title %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'pages/user_profile_detail.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="profile-container">
+    <h1 class="profile-title">Client Profile</h1>
+
+    <div class="profile-picture-wrapper">
+        {% if user.photo %}
+            <img src="{{ user.photo.url }}" alt="Profile Picture" class="profile-picture">
+        {% else %}
+            <div class="profile-avatar placeholder">{{ user.username|slice:":1"|upper }}</div>
+        {% endif %}
+    </div>
+
+    <div class="profile-section">
+        <h2>Personal Information</h2>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ user.phone|default:"—" }}</p>
+    </div>
+
+    <div class="profile-section">
+        <h2>Location</h2>
+        <p><strong>Governorate:</strong> {{ user.governorate|default:"—" }}</p>
+        <p><strong>City:</strong> {{ user.city|default:"—" }}</p>
+    </div>
+
+    <a href="{% url 'user_profile_update' %}" class="edit-button">Edit Profile</a>
+</div>
+{% endblock content %}

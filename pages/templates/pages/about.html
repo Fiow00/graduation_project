@@ -1,0 +1,232 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}About Us | Serv4U{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'pages/about.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Banner -->
+<section class="about-hero">
+    <div class="container">
+        <h1>About Serv4U</h1>
+        <p class="subtitle">Connecting you with trusted professionals since 2023</p>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="mission-section">
+    <div class="container">
+        <div class="mission-content">
+            <h2 class="section-title">Our Mission</h2>
+            <div class="mission-text">
+                <p>At Serv4U, we're revolutionizing how people find and connect with service professionals. Our platform bridges the gap between skilled providers and those who need their services, creating a seamless, trustworthy experience for both parties.</p>
+                <p>We carefully vet every professional on our platform to ensure you receive only the highest quality service for your home, health, vehicle, and other essential needs.</p>
+            </div>
+            <div class="mission-stats">
+                <div class="stat-item">
+                    <span class="stat-number">10,000+</span>
+                    <span class="stat-label">Satisfied Customers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Verified Professionals</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Customer Support</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section">
+    <div class="container">
+        <h2 class="section-title">Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Trust & Safety</h3>
+                <p>Every professional undergoes rigorous background checks and verification before joining our platform.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Quality Service</h3>
+                <p>We maintain high standards through customer ratings and continuous performance monitoring.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Quick Response</h3>
+                <p>Get connected with available professionals in your area within minutes, not days.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="container">
+        <h2 class="section-title">Meet Our Team</h2>
+        <p class="section-subtitle">The passionate people behind Serv4U</p>
+
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/zeinab mohamed.jpg' %}" alt="Zeinab" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <h3>Zeinab</h3>
+                <p class="position">CEO & Founder</p>
+                <p class="bio">Visionary leader with 10+ years in service industry technology.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/Aya Said.jpg' %}" alt="Aya" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <h3>Aya</h3>
+                <p class="position">CTO</p>
+                <p class="bio">Tech expert specializing in platform architecture and security.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/Aya Ismail.jpg' %}" alt="Aya" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <h3>Aya</h3>
+                <p class="position">Head of Design</p>
+                <p class="bio">Creative director focused on user experience and interface design.</p>
+            </div>
+
+            <!-- Additional team members -->
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/Sohir Sief.jpg' %}" alt="Sohier" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <h3>Sohier</h3>
+                <p class="position">Marketing Director</p>
+                <p class="bio">Digital marketing strategist and brand developer.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/Mostafa.jpg' %}" alt="Mostafa" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <h3>Mostafa</h3>
+                <p class="position">Lead Developer</p>
+                <p class="bio">Full-stack developer with expertise in scalable systems.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/team2.jpg' %}" alt="Ahmed" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <h3>Ahmed</h3>
+                <p class="position">Operations Manager</p>
+                <p class="bio">Ensures seamless service delivery and customer satisfaction.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/Ismail.jpg' %}" alt="Ismail" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <h3>Ismail</h3>
+                <p class="position">Operations Manager</p>
+                <p class="bio">Ensures seamless service delivery and customer satisfaction.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/Mohamed.jpg' %}" alt="Mohamed" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <h3>Mohamed</h3>
+                <p class="position">Operations Manager</p>
+                <p class="bio">Ensures seamless service delivery and customer satisfaction.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/Yousef.jpg' %}" alt="Yousef" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <h3>Yousef</h3>
+                <p class="position">Operations Manager</p>
+                <p class="bio">Ensures seamless service delivery and customer satisfaction.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/Hosam.jpg' %}" alt="Hosam" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <h3>Hosam</h3>
+                <p class="position">Operations Manager</p>
+                <p class="bio">Ensures seamless service delivery and customer satisfaction.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-container">
+                    <img src="{% static 'pages/images/Mahmoud.jpg' %}" alt="Mahmoud" class="team-img">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <h3>Mahmoud</h3>
+                <p class="position">Operations Manager</p>
+                <p class="bio">Ensures seamless service delivery and customer satisfaction.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="about-cta">
+    <div class="container">
+        <h2>Ready to experience the Serv4U difference?</h2>
+        <a href="{% url 'account_signup' %}" class="btn btn-primary">Join Our Community</a>
+    </div>
+</section>
+{% endblock %}

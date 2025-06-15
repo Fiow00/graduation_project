@@ -1,0 +1,144 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}Sign Up{% endblock title %}
+
+{% block style %}
+    <link href="{% static 'accounts/signup.css' %}" rel="stylesheet">
+{% endblock style %}
+
+{% block content %}
+<div class="signup-container">
+    <div class="form-section">
+        <h2>Create an Account</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Username -->
+            <div>
+                <label for="{{ form.username.id_for_label }}">Username</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Phone -->
+            <div>
+                <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    <div class="error">
+                        {% for error in form.phone.errors %}
+                            {{ error|escape }}  {# This will show the RegexValidator message #}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <small class="form-text text-muted">{{ form.phone.help_text|safe }}</small>
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="{{ form.password1.id_for_label }}">Password</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="error">{{ form.password1.errors }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Confirm Password -->
+            <div>
+                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="error">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="password-strength">
+                <div class="strength-bar" id="password-strength-bar"></div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div>
+                <label>
+                    {{ form.terms }} {{ form.terms.label }}
+                </label>
+                {% if form.terms.errors %}
+                    <div class="error">{{ form.terms.errors }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Is Craftsman -->
+            <div>
+                <label>
+                    {{ form.is_craftsman }} {{ form.is_craftsman.label }}
+                </label>
+                {% if form.is_craftsman.errors %}
+                    <div class="error">{{ form.is_craftsman.errors }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <div class="social-login">
+            <p>Or sign up with:</p>
+            <a class="google-btn" href="{% provider_login_url 'google' %}">Sign Up with Google</a>
+
+            <p>
+                Already have an account?
+                <a href="{% url 'account_login' %}">Sign In</a>
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    const phoneInput = document.querySelector('#{{ form.phone.id_for_label }}');
+    const phoneValue = phoneInput.value.trim();
+    const phoneRegex = /^(\+20|0)?1[0-9]{9}$/;
+    
+    if (!phoneRegex.test(phoneValue)) {
+        e.preventDefault();
+        alert('Please enter a valid Egyptian phone number (e.g.: +201234567890 or 01234567890)');
+        phoneInput.focus();
+    }
+});
+
+// Password strength indicator
+const passwordInput = document.querySelector('#{{ form.password1.id_for_label }}');
+const strengthBar = document.getElementById('password-strength-bar');
+
+passwordInput.addEventListener('input', function() {
+  const strength = calculatePasswordStrength(this.value);
+  strengthBar.style.width = strength + '%';
+  strengthBar.style.backgroundColor = strength < 40 ? '#dc3545' : 
+                                    strength < 70 ? '#ffc107' : '#28a745';
+});
+
+function calculatePasswordStrength(password) {
+  // Simple strength calculation - replace with more robust logic if needed
+  let strength = 0;
+  if (password.length > 0) strength += 20;
+  if (password.length > 5) strength += 20;
+  if (password.match(/[A-Z]/)) strength += 20;
+  if (password.match(/[0-9]/)) strength += 20;
+  if (password.match(/[^A-Za-z0-9]/)) strength += 20;
+  return Math.min(strength, 100);
+}
+</script>
+{% endblock content %}

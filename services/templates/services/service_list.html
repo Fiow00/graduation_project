@@ -1,0 +1,54 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}Services | Serv4U{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'services/service_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="services-section">
+  <div class="container">
+    <div class="section-header">
+      <h1>Our Services</h1>
+      <form method="get" class="search-form">
+        <input 
+          type="text" 
+          name="q" 
+          placeholder="Search services..." 
+          value="{{ request.GET.q }}"
+        >
+        <button type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </div>
+
+    <div class="services-grid">
+      {% for service in services %}
+      <a href="{% url 'service_detail' service.id %}" class="service-card">  <!-- Changed to service.id -->
+        <div class="card-image">
+          <img 
+            src="{{ service.image.url }}" 
+            alt="{{ service.title }}" 
+            loading="lazy"
+          >
+        </div>
+        <div class="card-body">
+          <h3>{{ service.title }}</h3>
+          {% if service.description %}
+          <p>{{ service.description|truncatechars:100 }}</p>
+          {% endif %}
+          <span class="card-link">View Craftsmen <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+      {% empty %}
+      <div class="no-results">
+        <p>No services found. Try a different search.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

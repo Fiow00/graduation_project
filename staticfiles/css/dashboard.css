@@ -1,0 +1,110 @@
+/* Dashboard Container */
+.dashboard-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Welcome Message */
+.dashboard-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Dashboard Links */
+.dashboard-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.dashboard-btn {
+    padding: 12px 18px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.dashboard-btn:hover {
+    background: #0056b3;
+}
+
+/* Service List */
+h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.service-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.service-item h4 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.service-item p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+/* View Button */
+.btn-view {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.btn-view:hover {
+    background: #218838;
+}
+
+/* Logout Button */
+.btn-logout {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #dc3545;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background 0.3s ease;
+}
+
+.btn-logout:hover {
+    background: #b02a37;
+}

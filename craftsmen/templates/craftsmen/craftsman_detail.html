@@ -1,0 +1,162 @@
+{% extends "pages/_base.html" %}
+{% load static %}
+
+{% block title %}{{ craftsman.user.username }} - Profile{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'craftsmen/craftsman_detail.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+{% endblock style %}
+
+{% block content %}
+    <div class="profile-container">
+        <div class="profile-header">
+            {% if craftsman.photo %}
+                <img class="profile-avatar" src="{{ craftsman.photo.url }}" alt="{{ craftsman.user.username }}">
+            {% else %}
+                <div class="profile-avatar placeholder">{{ craftsman.user.username|slice:":1"|upper }}</div>
+            {% endif %}
+            <div>
+                <h2 class="profile-username">{{ craftsman.user.username }}</h2>
+                <span class="profile-verified">
+                    {% if craftsman.is_verified %}
+                        <span title="Verified" class="verified-badge">✔️ Verified</span>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+
+        <div class="profile-details-grid">
+            <div class="profile-detail-card">
+                <h3><span class="icon">📧</span> Contact</h3>
+                <ul>
+                    <li><strong>Phone:</strong> {{ craftsman.user.phone|default:"—" }}</li>
+                    <li><strong>Email:</strong> {{ craftsman.user.email|default:"_" }} </li>
+                </ul>
+            </div>
+            <div class="profile-detail-card">
+                <h3><span class="icon">🛠️</span> Service</h3>
+                <ul>
+                    <li><strong>Service:</strong> {{ craftsman.service|default:"—" }}</li>
+                    <li><strong>Experience:</strong> {{ craftsman.experience_years|default:"—" }} years</li>
+                    <li><strong>Certifications:</strong> {{ craftsman.certifications|default:"—" }}</li>
+                </ul>
+            </div>
+            <div class="profile-detail-card">
+                <h3><span class="icon">📍</span> Location</h3>
+                <ul>
+                    <li>{{ craftsman.governorate|default:"—" }}, {{ craftsman.city|default:"—" }}</li>
+                </ul>
+            </div>
+            <div class="profile-detail-card">
+                <h3><span class="icon">⭐</span> Rating</h3>
+                <ul>
+                    <li>
+                        {% if average_rating %}
+                            <span class="rating-value">{{ average_rating|floatformat:2 }}</span> / 5
+                        {% else %}
+                            No ratings yet
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+            <div class="profile-detail-card">
+                <h3><span class="icon">👥</span> Followers</h3>
+                <ul>
+                    <li><span class="followers-count">{{ follower_count }}</span> followers</li>
+                </ul>
+            </div>
+            <div class="profile-detail-card">
+                <h3><span class="icon">📝</span> Bio</h3>
+                <ul>
+                    <li>{{ craftsman.bio|default:"—" }}</li>
+                </ul>
+            </div>
+        </div>
+        {% if user.is_authenticated and user != craftsman.user %}
+            <form method="post" style="margin-bottom: 18px;">
+                {% csrf_token %}
+                <button type="submit" name="follow" class="follow-btn">
+                    {% if is_following %}
+                        Unfollow
+                    {% else %}
+                        Follow
+                    {% endif %}
+                </button>
+            </form>
+            {% if has_pending_booking %}
+                <button class="follow-btn" disabled>Booking Pending</button>
+            {% else %}
+                <form method="post" style="margin-bottom: 18px;">
+                    {% csrf_token %}
+                    <textarea name="booking_message" placeholder="Booking message (optional)" rows="2" style="width:100%;margin-bottom:8px;"></textarea>
+                    <button type="submit" name="book" class="follow-btn">Book This Craftsman</button>
+                </form>
+            {% endif %}
+        {% endif %}
+        {% if user.is_authenticated and user == craftsman.user and received_bookings %}
+            <h3>Booking Requests</h3>
+            <div class="comments-section">
+                {% for booking in received_bookings %}
+                    <div class="comment">
+                        <strong>{{ booking.user.username }}</strong>
+                        <span>({{ booking.created_at|date:"Y-m-d H:i" }})</span>
+                        <div>Status: <b>{{ booking.status|title }}</b></div>
+                        <div>Message: {{ booking.message|default:"—" }}</div>
+                        {% if booking.status == "pending" %}
+                            <form method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" name="accept_booking" value="{{ booking.id }}" class="follow-btn" style="background:#38a169;">Accept</button>
+                                <button type="submit" name="refuse_booking" value="{{ booking.id }}" class="follow-btn" style="background:#e53e3e;">Refuse</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% empty %}
+                    <p>No booking requests yet.</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <h3>Comments</h3>
+        <div class="comments-section">
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="comment">
+                        <strong>{{ comment.author }}</strong>
+                        <span>({{ comment.created_at|date:"Y-m-d H:i" }})</span>
+                        <div>Rating: {{ comment.rating|default:"-" }}/5</div>
+                        <p>{{ comment.comment }}</p>
+                    </div>
+                {% empty %}
+                    <p>No comments yet.</p>
+                {% endfor %}
+            {% else %}
+                <p>No comments yet.</p>
+            {% endif %}
+        </div>
+
+        {% if user.is_authenticated %}
+        <h3>Leave a Comment</h3>
+        <form method="post" action="">
+            {% csrf_token %}
+            <div>
+                <label for="id_comment">Comment:</label>
+                <textarea name="comment" id="id_comment" rows="3" required></textarea>
+            </div>
+            <div>
+                <label for="id_rating">Rating:</label>
+                <select name="rating" id="id_rating" required>
+                    <option value="">--Select--</option>
+                    {% for i in "12345" %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select> / 5
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        {% endif %}
+
+        <a class="back-link" href="{% url 'service_list' %}">← Back to Services</a>
+        </div>
+    </div>
+{% endblock content %}

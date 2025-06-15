@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Serv4U{% endblock title %}</title>
+        <link rel="stylesheet" href="{% static 'pages/_base.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+        {% block style %}
+        {% endblock style %}
+    </head>
+    <body>
+
+        <!-- Navigation Bar -->
+        <header>
+            <nav>
+                <a href="{% url 'home' %}" class="logo-link">
+                <img src="{% static 'pages/images/logo1.jpg' %}" alt="Serv4U Logo" class="logo-img">
+                <span class="logo-text">Serv4U</span>
+                </a>
+
+                <div class="nav-links">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'service_list' %}">Services</a></li>
+                    <li><a href="{% url 'dashboard' %}">Dashboad</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                </ul>
+                </div>
+
+                <div class="auth-links">
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li class="profile-dropdown">
+                        <a href="{% url 'profile' %}" class="profile-link">
+                        {% if user.photo %}
+                            <img src="{{ user.photo.url }}" class="profile-img">
+                        {% elif craftsman.photo %}
+                            <img src="{{ craftsman.photo.url }}" class="profile-img">
+                        {% endif %}
+                        <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'account_logout' %}" class="auth-btn logout-btn">Log Out</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'account_login' %}" class="auth-btn login-btn">Log In</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'account_signup' %}" class="auth-btn signup-btn">Sign Up</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content Area -->
+        <main>
+            {% block content %}{% endblock content %}
+        </main>
+
+        <!-- Footer -->
+        <!-- <footer>
+            <p>&copy; 2025 Serv4U. All rights reserved.</p>
+        </footer> -->
+
+    </body>
+</html>

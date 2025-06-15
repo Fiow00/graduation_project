@@ -1,0 +1,107 @@
+/* accounts/static/accounts/logout.css */
+:root {
+  --primary: #05294d;
+  --secondary: #dc3545;
+  --secondary-hover: #c82333;
+  --white: #ffffff;
+  --gray-light: #f8f9fa;
+  --gray-medium: #e9ecef;
+  --gray-dark: #6c757d;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+/* ===== Base Structure ===== */
+.logout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--gray-light);
+}
+
+/* ===== Typography ===== */
+.logout-container h2 {
+  color: var(--primary);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.logout-container p {
+  color: var(--gray-dark);
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+/* ===== Form Elements ===== */
+.logout-form {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.logout-btn {
+  background: var(--secondary);
+  color: var(--white);
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+.logout-btn:hover {
+  background: var(--secondary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.cancel-link {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: var(--transition);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  text-decoration: none;
+}
+
+.cancel-link:hover {
+  background: var(--primary);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* ===== Animation ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.logout-container {
+  animation: fadeIn 0.4s ease;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 576px) {
+  .logout-form {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .logout-btn, .cancel-link {
+    width: 100%;
+    text-align: center;
+  }
+}
